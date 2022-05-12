@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class ArchivoProducto extends Model
 {
     use HasFactory;
+   
 }
