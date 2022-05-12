@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Gate;
+
 
 class ProductoController extends Controller
 {
@@ -24,7 +28,8 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        //
+        /* $this->authorize('create'); */
+        return view('producto.producto-form');
     }
 
     /**
@@ -35,7 +40,23 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Gate::authorize('admin-productos');
+
+        $request->validate($this->rules + ['folio' => ['required', 'integer', 'unique:App\Models\Producto']]);
+
+        // Crear el programa haciendo merge para agregar user_id al $request
+        // $request->merge(['user_id' => Auth::id()]); // Agrega user_id a $request, como si lo hubieramos mandado en el formulario
+        // Programa::create($request->all()); //Crea Programa en la DB
+
+        // Crea el programa utilizando save()
+        $producto = new Producto(); // Crea una instancia en memoria de Programa
+        
+
+
+
+
+
+        return redirect()->route('productos');
     }
 
     /**
