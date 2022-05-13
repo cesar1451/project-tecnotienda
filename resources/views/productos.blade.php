@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
+            {{ __('Productos') }}
         </h2>
     </x-slot>
 
@@ -10,8 +10,8 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
                     <a class="px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-                        href="{{ route('producto.create') }}">
-                        Agregar Programa
+                    href="{{ route('producto.create') }}">
+                        Agregar producto
                     </a>
                 </h4>
                 
@@ -32,8 +32,8 @@
                       </tr>
                     </thead>
                     <tbody
-                      class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800"                
-                    >
+                      class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                    
                     </tbody>
                   </table>
             </div>
