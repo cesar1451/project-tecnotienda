@@ -33,11 +33,8 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/productos', function () {
-        return view('productos');
-    })->name('productos');
     Route::get('/admin', function(){
-        return view('admin.index-admin');
+        return view('producto.producto-index');
     });
 });
 
