@@ -21,7 +21,8 @@ return new class extends Migration
                 $table->double('precio', 8, 2);
                 $table->integer('cantidad')->unsigned();            
                 $table->text('descripcion');//descripcion    
-                $table->foreignId('user_id');
+                $table->foreignId('user_id');    
+                $table->timestamps();            
             });
     }
 

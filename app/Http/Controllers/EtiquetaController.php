@@ -14,7 +14,8 @@ class EtiquetaController extends Controller
      */
     public function index()
     {
-        //
+        $etiquetas = Etiqueta::all();
+        return view('etiqueta.etiqueta-index', compact('etiquetas'));
     }
 
     /**
@@ -24,7 +25,7 @@ class EtiquetaController extends Controller
      */
     public function create()
     {
-        //
+        return view('etiqueta.etiqueta-form');
     }
 
     /**
@@ -35,7 +36,13 @@ class EtiquetaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $etiqueta = new Etiqueta();
+        $etiqueta->nombre = $request->nombre;       
+        $etiqueta->created_at = now();
+        $etiqueta->updated_at = now();
+        $etiqueta->save();        
+
+        return redirect('/etiquetas');
     }
 
     /**

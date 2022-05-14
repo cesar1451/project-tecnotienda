@@ -28,6 +28,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'rol',
         'email',
         'password',
+        'fb_id'
     ];
 
     /**

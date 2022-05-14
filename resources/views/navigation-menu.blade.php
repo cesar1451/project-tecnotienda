@@ -5,6 +5,11 @@
         'route' =>  url('/productos'),
         'active' => request()->routeIs('productos'),
         ],
+        [
+        'name' => 'Etiquetas',
+        'route' =>  url('/etiquetas'),
+        'active' => request()->routeIs('etiquetas'),
+        ],
     ];
 
 @endphp

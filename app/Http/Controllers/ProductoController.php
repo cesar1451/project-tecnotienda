@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Etiqueta;
 use App\Models\Producto;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -17,7 +19,7 @@ class ProductoController extends Controller
         'modelo' => 'required', 
         'precio' => 'required', 
         'cantidad' => 'required', 
-        'descripcion' => 'required',        
+        'descripcion' => 'required',                
     ];
 
     /**
@@ -48,8 +50,8 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        /* $this->authorize('create'); */
-        return view('producto.producto-form');
+        $etiquetas = Etiqueta::all();
+        return view('producto.producto-form', compact('etiquetas'));
     }
 
     /**
@@ -59,18 +61,26 @@ class ProductoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {                   
         $producto = new Producto();
         $producto->nombre = $request->nombre;
         $producto->marca = $request->marca;
         $producto->modelo = $request->modelo;
-        /* $producto->precio = $request->precio;
+        $producto->precio = $request->precio;
         $producto->cantidad = $request->cantidad;
         $producto->descripcion = $request->descripcion;
-        $producto->user_id = Auth::id(); */
-        $producto->save();
+        $producto->user_id = Auth::id();
+        $producto->created_at = now();
+        $producto->updated_at = now();    
+        
+        
+                            
+        $producto->etiquetas()->attach($request->etiquetas);
+           
 
-        return url('/productos');
+        $producto->save(); 
+
+        return redirect('/productos');
     }    
 
     /**
