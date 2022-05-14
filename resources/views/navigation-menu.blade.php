@@ -1,13 +1,8 @@
 @php
     $nav_links = [
         [
-        'name' => 'Dashboard',
-        'route' =>  route('dashboard'),
-        'active' => request()->routeIs('dashboard'),
-        ],
-        [
         'name' => 'Productos',
-        'route' =>  route('productos'),
+        'route' =>  url('/productos'),
         'active' => request()->routeIs('productos'),
         ],
     ];
@@ -21,7 +16,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a href="{{ url('/productos') }}">
                         <x-jet-application-mark class="block h-9 w-auto" />
                     </a>
                 </div>

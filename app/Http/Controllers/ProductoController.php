@@ -11,6 +11,15 @@ use Illuminate\Support\Facades\Gate;
 
 class ProductoController extends Controller
 {
+    protected $rules = [
+        'nombre' => 'required|min:5', 
+        'marca' => 'required|in:Razer, Hyperx, asus, Zotag |min:6', 
+        'modelo' => 'required', 
+        'precio' => 'required', 
+        'cantidad' => 'required', 
+        'descripcion' => 'required',        
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +27,18 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        //
+        /* $rol = Auth::user()->rol;
+        if ($rol == 'Proveedor'){
+            $id = Auth::id();
+            $productos = Producto::with($id, 'user_id')->get();
+            //Nos falta que concatene los archivos y etiquetas
+        }
+        else{
+            $productos = Producto::all();   
+            //Nos falta que concatene los archivos y etiquetas
+        } */
+
+        return view('producto.producto-index');
     }
 
     /**
@@ -39,20 +59,19 @@ class ProductoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        Gate::authorize('admin-productos');
+    {   
+        $producto = new Producto();
+        $producto->nombre = $request->nombre;
+        $producto->marca = $request->marca;
+        $producto->modelo = $request->modelo;
+        /* $producto->precio = $request->precio;
+        $producto->cantidad = $request->cantidad;
+        $producto->descripcion = $request->descripcion;
+        $producto->user_id = Auth::id(); */
+        $producto->save();
 
-        $request->validate($this->rules + ['folio' => ['required', 'integer', 'unique:App\Models\Producto']]);
-
-        // Crear el programa haciendo merge para agregar user_id al $request
-        // $request->merge(['user_id' => Auth::id()]); // Agrega user_id a $request, como si lo hubieramos mandado en el formulario
-        // Programa::create($request->all()); //Crea Programa en la DB
-
-        // Crea el programa utilizando save()
-        $producto = new Producto(); // Crea una instancia en memoria de Programa
-
-        return redirect()->route('productos');
-    }
+        return url('/productos');
+    }    
 
     /**
      * Display the specified resource.

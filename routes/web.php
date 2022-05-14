@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProductoController;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,21 +23,8 @@ Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+])->group(function () {       
+    Route::get('/productos', [ProductoController::class, 'index']);
+    Route::get('/productos/create', [ProductoController::class, 'create']);       
+    Route::post('/producto', [ProductoController::class, 'store']); 
 });
-
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/admin', function(){
-        return view('producto.producto-index');
-    });
-});
-
-
-Route::resource('producto', ProductoController::class)->middleware('verified');
