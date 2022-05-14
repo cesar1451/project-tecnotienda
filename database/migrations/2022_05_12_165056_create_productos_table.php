@@ -19,8 +19,9 @@ return new class extends Migration
                 $table->string('marca')->nullable();
                 $table->string('modelo');
                 $table->double('precio', 8, 2);
-                $table->integer('cantidad')->unsigned();
-                $table->text('descripcion');//descripción                              
+                $table->integer('cantidad')->unsigned();            
+                $table->text('descripcion');//descripcion    
+                $table->foreignId('user_id');
             });
     }
 
