@@ -10,11 +10,11 @@ use Illuminate\Database\Eloquent\Model;
 class Producto extends Model
 {
     use HasFactory;
-    protected $fillable = ['nombre', 'marca', 'modelo', 'precio', 'cantidad', 'descripcion'];
+    protected $fillable = ['nombre', 'marca', 'modelo', 'precio', 'cantidad', 'descripcion', 'user_id'];
 
     //Relación muchos a muchos
-    public function etiqeutas(){
-        return $this->belongsToMany(Etiqueta::class, 'etiqueta_productos');
+    public function etiquetas(){
+        return $this->belongsToMany(Etiqueta::class);
     }
 
     public function archivos()

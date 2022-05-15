@@ -15,7 +15,7 @@ class ProductoController extends Controller
 {
     private $rules = [
         'nombre' => 'required|min:5', 
-        'marca' => 'required|in:Razer, Hyperx, asus, Zotag |min:6', 
+        'marca' => 'required|min:6', 
         'modelo' => 'required', 
         'precio' => 'required', 
         'cantidad' => 'required', 
@@ -61,9 +61,15 @@ class ProductoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {    
-        $request->validate($this->rules);               
-        $producto = new Producto();
+    {
+       
+        $request->validate($this->rules);
+        $request->merge([
+            'user_id' => Auth::id(),
+        ]);
+        $producto = Producto::create($request->all());
+        $producto->etiquetas()->attach($request->etiqueta_id);
+       /*  $producto = new Producto();
         $producto->nombre = $request->nombre;
         $producto->marca = $request->marca;
         $producto->modelo = $request->modelo;
@@ -72,8 +78,10 @@ class ProductoController extends Controller
         $producto->descripcion = $request->descripcion;
         $producto->user_id = Auth::id();
         $producto->created_at = now();
-        $producto->updated_at = now();                                   
-        $producto->save(); 
+        $producto->updated_at = now();
+        $producto->etiqeutas()->attach($request->etiqueta_id);
+        $producto->save();  */
+       
 
         return redirect('/productos');
     }    

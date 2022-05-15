@@ -13,7 +13,7 @@ class Etiqueta extends Model
 
     //Relación muchos a muchos
     public function productos(){
-        return $this->belongsToMany(Producto::class, 'etiqueta_productos');
+        return $this->belongsToMany(Producto::class);
     }
 
 }

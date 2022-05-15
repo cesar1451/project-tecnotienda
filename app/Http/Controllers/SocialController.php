@@ -21,7 +21,7 @@ class SocialController extends Controller
 
             if($findUser) {
                 Auth::login($findUser);
-                return redirect()->intended('productos');
+                return redirect()->intended('dashboard');
             }else{
                 $newUser = User::create([
                     'name' => $facebookUser->name,
@@ -31,7 +31,7 @@ class SocialController extends Controller
                     'password' => encrypt('12345678')
                 ]);
                 Auth::login($newUser);
-                return redirect()->intended('productos');
+                return redirect()->intended('dashboard');
             }
         } catch (Exception $e) {
             dd($e->getMessage());
