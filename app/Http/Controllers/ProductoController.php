@@ -68,7 +68,8 @@ class ProductoController extends Controller
             'user_id' => Auth::id(),
         ]);
         $producto = Producto::create($request->all());
-        $producto->etiquetas()->attach($request->etiqueta_id);
+        $producto->etiquetas()->attach($request->etiquetas_id);
+
        /*  $producto = new Producto();
         $producto->nombre = $request->nombre;
         $producto->marca = $request->marca;
