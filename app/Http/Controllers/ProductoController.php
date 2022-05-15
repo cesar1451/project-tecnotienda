@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Etiqueta;
 use App\Models\Producto;
+use App\Models\Archivo;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -69,6 +70,17 @@ class ProductoController extends Controller
         ]);
         $producto = Producto::create($request->all());
         $producto->etiquetas()->attach($request->etiquetas_id);
+        foreach($request->archivos as $archivo){
+            if($archivo->isValid()){
+                $nombre_hash = $archivo->store('archivos');
+                $registroArchivo = new Archivo();
+                $registroArchivo->nombre = $archivo->getClientOriginalName();
+                $registroArchivo->nombre_hash = $nombre_hash;
+                $registroArchivo->mime = $archivo->getClientMimeType();
+                $registroArchivo->save();
+
+            }
+        }
 
        /*  $producto = new Producto();
         $producto->nombre = $request->nombre;
@@ -83,7 +95,8 @@ class ProductoController extends Controller
         $producto->etiqeutas()->attach($request->etiqueta_id);
         $producto->save();  */
        
-
+        /* return redirect()->route('grabacion.show', $request->grabacion_id)
+        ->with(['mensaje'=>'Archivos cargados con éxito']); */
         return redirect('/productos');
     }    
 

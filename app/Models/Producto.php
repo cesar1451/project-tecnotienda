@@ -17,6 +17,7 @@ class Producto extends Model
         return $this->belongsToMany(Etiqueta::class);
     }
 
+    //Uno a muchos
     public function archivos()
     {
         return $this->hasMany(Archivo::class);

@@ -27,7 +27,7 @@ Route::middleware([
     'verified'
 ])->group(function () {       
     Route::get('/productos', [ProductoController::class, 'index']);
-    Route::get('/productos/create', [ProductoController::class, 'create']);       
+    Route::get('/productos/create', [ProductoController::class, 'create']) /* ->name('productos.create') */;
     Route::post('/producto', [ProductoController::class, 'store']); 
     //Etiquetas
     Route::get('/etiquetas', [EtiquetaController::class, 'index']);

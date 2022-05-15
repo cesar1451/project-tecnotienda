@@ -14,9 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('archivos', function (Blueprint $table) {
-            $table->id();                   
+            $table->id();
             $table->string('filename');
+            $table->string('nombre');
+            $table->string('nombre_hash');   //nombre que asigna laravel al almacenar el archivo
             $table->string('ruta');
+            $table->string('mime');   //mime guardar el tipo de archivo
+            $table->foreignId('producto_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
