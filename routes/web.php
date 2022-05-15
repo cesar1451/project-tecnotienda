@@ -33,6 +33,9 @@ Route::middleware([
     Route::get('/etiquetas', [EtiquetaController::class, 'index']);
     Route::get('/etiqueta/create', [EtiquetaController::class, 'create']);
     Route::post('/etiqueta', [EtiquetaController::class, 'store']);
+    Route::delete('/etiqueta/{etiqueta}', [EtiquetaController::class, 'destroy']);     
+    Route::get('/etiqueta/{etiqueta}/edit', [EtiquetaController::class, 'edit']);
+    Route::patch('/etiqueta/{etiqueta}', [EtiquetaController::class, 'update']);    
 });
 
 

@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="w-1/3 mx-auto bg-white p-24">
+        <div class="w-1/2 mx-auto bg-white p-24">
             <form action="/producto" method="POST">
             @csrf
                 <div class="flex justify-center">
@@ -26,6 +26,7 @@
                             id="marca"
                             name="marca"
                             placeholder="Marca"
+                            required
                         />
                     </div>
                 </div>
@@ -86,7 +87,7 @@
                         ></textarea>
                     </div>
                 </div>
-                {{--  Etiquetas  --}}                
+                {{--  Etiquetas  --}}                       
                 <div class="flex justify-center">
                     <div class="mb-3 xl:w-96">
                         <label for="etiquetas" class="form-label inline-block mb-2 text-gray-700"
@@ -112,11 +113,10 @@
                                 @endforeach                                                                                 
                         </select>
                         @error('etiqueta')
-                            <p class="form-text text-danger">{{$message}}</p>
+                            <div class="form-text text-danger">{{$message}}</div>
                         @enderror
                     </div>
-                </div>
-
+                </div>                      
                 <button type="submit" class=" mt-4 w-1/3 float-right bg-blue-500 mx-4 text-white px-4 py-2 rounded-md text-1xl font-medium hover:bg-blue-700 transition duration-300">Guardar</button>                            
             </form>
             <a href=" {{ url('/productos') }}" class="text-center mt-4 w-1/3 float-right bg-red-600 text-white px-4 py-2 rounded-md text-1xl font-medium hover:bg-red-700 transition duration-300"

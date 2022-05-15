@@ -38,7 +38,7 @@
                             <th scope="col" class="px-6 py-3">
                                 Nombre
                             </th>
-                            <th scope="col" class="px-6 py-3">
+                            <th scope="col" class="px-6 py-3 text-left">
                                 Acciones
                             </th>
                         </tr>
@@ -55,22 +55,20 @@
                                     class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
                                     {{ $etiqueta->nombre }}
                                 </th>                                
-                                <td class="px-6 py-4 text-right">
-                                    <a
-                                        class="font-bold text-white py-2 px-2 rounded cursor-pointer
-                        bg-purple-600 hover:bg-purple-700">
-                                        <i class="fas fa-search fa-solid fa-eye-dropper-half"></i>
-                                    </a>
-                                    <a
+                                <td class="px-6 py-4 text-center flex space-x-2">                                                             
+                                    <a href="/etiqueta/{{$etiqueta->id}}/edit"
                                         class="font-bold text-white py-2 px-2 rounded cursor-pointer
                         bg-green-600 hover:bg-green-700">
                                         <i class="fas fa-edit fa-solid fa-eye-dropper-half"></i>
                                     </a>
-                                    <a
-                                        class="font-bold text-white py-2 px-2 rounded cursor-pointer
-                        bg-red-600 hover:bg-red-700">
-                                        <i class="fas fa-trash fa-solid fa-eye-dropper-half"></i>
-                                    </a>
+                                    <form action="/etiqueta/ {{ $etiqueta->id }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')                                        
+                                        <button type="submit" class="font-bold text-white py-2 px-2 rounded cursor-pointer
+                                        bg-red-600 hover:bg-red-700">                                      
+                                            <i class="fas fa-trash fa-solid fa-eye-dropper-half"></i>                                    
+                                        </button>                             
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

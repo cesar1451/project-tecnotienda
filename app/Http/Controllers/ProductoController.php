@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Gate;
 
 class ProductoController extends Controller
 {
-    protected $rules = [
+    private $rules = [
         'nombre' => 'required|min:5', 
         'marca' => 'required|in:Razer, Hyperx, asus, Zotag |min:6', 
         'modelo' => 'required', 
@@ -61,7 +61,8 @@ class ProductoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {                   
+    {    
+        $request->validate($this->rules);               
         $producto = new Producto();
         $producto->nombre = $request->nombre;
         $producto->marca = $request->marca;
@@ -71,13 +72,7 @@ class ProductoController extends Controller
         $producto->descripcion = $request->descripcion;
         $producto->user_id = Auth::id();
         $producto->created_at = now();
-        $producto->updated_at = now();    
-        
-        
-                            
-        $producto->etiquetas()->attach($request->etiquetas);
-           
-
+        $producto->updated_at = now();                                   
         $producto->save(); 
 
         return redirect('/productos');

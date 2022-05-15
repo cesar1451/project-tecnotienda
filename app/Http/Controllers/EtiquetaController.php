@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 
 class EtiquetaController extends Controller
 {
+    protected $rules = [
+        'nombre' => 'required|min:1'
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -14,6 +17,7 @@ class EtiquetaController extends Controller
      */
     public function index()
     {
+        
         $etiquetas = Etiqueta::all();
         return view('etiqueta.etiqueta-index', compact('etiquetas'));
     }
@@ -36,6 +40,7 @@ class EtiquetaController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate($this->rules);
         $etiqueta = new Etiqueta();
         $etiqueta->nombre = $request->nombre;       
         $etiqueta->created_at = now();
@@ -63,8 +68,8 @@ class EtiquetaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Etiqueta $etiqueta)
-    {
-        //
+    {        
+        return view('etiqueta.etiqueta-form', compact('etiqueta'));
     }
 
     /**
@@ -76,7 +81,13 @@ class EtiquetaController extends Controller
      */
     public function update(Request $request, Etiqueta $etiqueta)
     {
-        //
+        $request->validate($this->rules);  
+        $etiqueta->nombre = $request->nombre;
+        $etiqueta->created_at = $etiqueta->created_at;          
+        $etiqueta->updated_at = now();      
+        $etiqueta->update();        
+
+        return redirect('/etiquetas');
     }
 
     /**
@@ -87,6 +98,7 @@ class EtiquetaController extends Controller
      */
     public function destroy(Etiqueta $etiqueta)
     {
-        //
+        $etiqueta->delete();
+        return redirect('/etiquetas');
     }
 }
