@@ -41,7 +41,8 @@ class ProductoController extends Controller
             //Nos falta que concatene los archivos y etiquetas
         } */
 
-        return view('producto.producto-index');
+        $productos = Producto::all();
+        return view('producto.producto-index', compact('productos'));
     }
 
     /**
@@ -62,15 +63,14 @@ class ProductoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-       
+    {       
         $request->validate($this->rules);
         $request->merge([
             'user_id' => Auth::id(),
         ]);
         $producto = Producto::create($request->all());
         $producto->etiquetas()->attach($request->etiquetas_id);
-        foreach($request->archivos as $archivo){
+       /*  foreach($request->archivos as $archivo){
             if($archivo->isValid()){
                 $nombre_hash = $archivo->store('archivos');
                 $registroArchivo = new Archivo();
@@ -80,7 +80,7 @@ class ProductoController extends Controller
                 $registroArchivo->save();
 
             }
-        }
+        } */
 
        /*  $producto = new Producto();
         $producto->nombre = $request->nombre;
@@ -108,7 +108,7 @@ class ProductoController extends Controller
      */
     public function show(Producto $producto)
     {
-        //
+        return view('producto.producto-show');
     }
 
     /**
@@ -142,6 +142,7 @@ class ProductoController extends Controller
      */
     public function destroy(Producto $producto)
     {
-        //
+        $producto->delete();
+        return redirect('/productos');
     }
 }

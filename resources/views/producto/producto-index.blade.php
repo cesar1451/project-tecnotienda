@@ -46,60 +46,68 @@
                     Precio
                     </th>
                     <th scope="col" class="px-6 py-3">
-                    Cantidad
-                    </th>
-                    <th scope="col" class="px-6 py-3">
                         Cantidad
+                    </th>                  
+                    <th scope="col" class="px-6 py-3">
+                        Etiquetas
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Descripción
-                    </th>
+                    </th>                    
                     <th scope="col" class="px-6 py-3">
                         Acciones
                     </th>
                   </tr>
               </thead>
               <tbody>
-                  <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                      <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                          1
-                      </th>
-                      <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                          1
-                      </th>
-                      <td class="px-6 py-4">
-                          Sliver
-                      </td>
-                      <td class="px-6 py-4">
-                          Laptop
-                      </td>
-                      <td class="px-6 py-4">
-                          $2999
-                      </td>
-                      <td class="px-6 py-4">
-                        $2999
-                    </td>
-                    <td class="px-6 py-4">
-                        $2999
-                    </td>
-                    <td class="px-6 py-4">
-                        $2999
-                    </td>
-                      <td class="px-6 py-4 text-right">
-                        <a class="font-bold text-white py-2 px-2 rounded cursor-pointer
-                        bg-purple-600 hover:bg-purple-700">
-                            <i class="fas fa-search fa-solid fa-eye-dropper-half"></i>
-                        </a>
-                        <a class="font-bold text-white py-2 px-2 rounded cursor-pointer
-                        bg-green-600 hover:bg-green-700" >
-                            <i class="fas fa-edit fa-solid fa-eye-dropper-half"></i>
-                        </a>
-                        <a class="font-bold text-white py-2 px-2 rounded cursor-pointer
-                        bg-red-600 hover:bg-red-700" >
-                            <i class="fas fa-trash fa-solid fa-eye-dropper-half"></i>
-                        </a>
+                  @foreach ($productos as $producto)
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                            {{ $producto->id }}
+                        </th>
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                            {{ $producto->nombre }}
+                        </th>
+                        <td class="px-6 py-4">
+                            {{ $producto->marca }}
                         </td>
-                  </tr>                   
+                        <td class="px-6 py-4">
+                            {{ $producto->modelo }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ $producto->precio }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ $producto->cantidad }}
+                        </td>
+                        <td class="px-6 py-4">
+                            @foreach ($producto->etiquetas as $etiqueta)
+                            {{ $etiqueta->nombre }} <br>
+                            @endforeach                            
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ $producto->descripcion }}
+                        </td>
+                        <td class="px-6 py-4 text-center flex space-x-2">
+                            <a class="font-bold text-white py-2 px-2 rounded cursor-pointer
+                            bg-purple-600 hover:bg-purple-700">
+                                <i class="fas fa-search fa-solid fa-eye-dropper-half"></i>
+                            </a>
+                            <a class="font-bold text-white py-2 px-2 rounded cursor-pointer
+                            bg-green-600 hover:bg-green-700" >
+                                <i class="fas fa-edit fa-solid fa-eye-dropper-half"></i>
+                            </a>
+                            <form action="/producto/ {{ $producto->id }}" method="POST">
+                                @csrf
+                                @method('DELETE')                                        
+                                <button type="submit" class="font-bold text-white py-2 px-2 rounded cursor-pointer
+                                bg-red-600 hover:bg-red-700">                                      
+                                    <i class="fas fa-trash fa-solid fa-eye-dropper-half"></i>                                    
+                                </button>  
+                            </form> 
+                        </td>
+                    </tr>                   
+                  @endforeach                  
               </tbody>
           </table>         
           <script src="https://unpkg.com/flowbite@1.3.4/dist/flowbite.js"></script>

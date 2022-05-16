@@ -16,9 +16,9 @@ class EtiquetasSeeder extends Seeder
      */
     public function run()
     {
-        Etiqueta::create(['nombre'=> 'Memoria RAM']);
-        Etiqueta::create(['nombre' => 'Tarjeta Madre']);
-        Etiqueta::create(['nombre' => 'Tarjeta de video']);
-        Etiqueta::create(['nombre' => 'Procesador']);
+        Etiqueta::create(['nombre'=> 'Nuevo']);
+        Etiqueta::create(['nombre' => 'Garantia']);
+        Etiqueta::create(['nombre' => 'Usado']);
+        Etiqueta::create(['nombre' => 'Descuento']);
     }
 }

@@ -25,10 +25,13 @@ Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
-])->group(function () {       
+])->group(function () {  
+    //Productos     
     Route::get('/productos', [ProductoController::class, 'index']);
     Route::get('/productos/create', [ProductoController::class, 'create']) /* ->name('productos.create') */;
     Route::post('/producto', [ProductoController::class, 'store']); 
+    Route::delete('/producto/{producto}', [ProductoController::class, 'destroy']); 
+    Route::get('/producto/{producto}/show', [ProductoController::class, 'show']);
     //Etiquetas
     Route::get('/etiquetas', [EtiquetaController::class, 'index']);
     Route::get('/etiqueta/create', [EtiquetaController::class, 'create']);

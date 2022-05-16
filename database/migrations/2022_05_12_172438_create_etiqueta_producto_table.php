@@ -16,12 +16,7 @@ return new class extends Migration
         Schema::create('etiqueta_producto', function (Blueprint $table) {
             $table->id();
             $table->foreignId('etiqueta_id')->constrained()->onDelete('cascade');
-            $table->foreignId('producto_id')->constrained()->onDelete('cascade');
-            /* $table->unsignedBigInteger('etiqueta_id');
-            $table->unsignedBigInteger('producto_id');
-            $table->foreign('etiqueta_id')->references ('id')->on('etiquetas')->onDelete('cascade');   
-            $table->foreign('producto_id')->references ('id')->on('productos')->onDelete('cascade'); */
-            $table->timestamps();
+            $table->foreignId('producto_id')->constrained()->onDelete('cascade');          
         });
     }
 
