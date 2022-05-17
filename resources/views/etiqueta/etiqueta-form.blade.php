@@ -8,10 +8,10 @@
     <div class="py-12">
         <div class="w-1/3 mx-auto bg-white p-24">         
             @isset($etiqueta)                                   
-                <form action="/etiqueta/{{$etiqueta->id}}" method="POST"> {{--  Update  --}}               
+                <form action="{{ route('etiquetas.update', $etiqueta->id) }}" method="POST"> {{--  Update  --}}               
                     @method('PATCH')   
             @else
-                <form action="/etiqueta" method="POST"> {{--  Crear  --}}                               
+                <form action="{{ route('etiquetas.store') }}" method="POST"> {{--  Crear  --}}                               
             @endisset                         
                 @csrf
                 <div class="flex justify-center">
@@ -32,7 +32,7 @@
                 </div>                
                 <button type="submit" class=" mt-4 w-1/3 float-right bg-blue-500 mx-4 text-white px-4 py-2 rounded-md text-1xl font-medium hover:bg-blue-700 transition duration-300">Guardar</button>                            
             </form>
-            <a href=" {{ url('/etiquetas') }}" class="text-center mt-4 w-1/3 float-right bg-red-600 text-white px-4 py-2 rounded-md text-1xl font-medium hover:bg-red-700 transition duration-300"
+            <a href=" {{ url('etiquetas') }}" class="text-center mt-4 w-1/3 float-right bg-red-600 text-white px-4 py-2 rounded-md text-1xl font-medium hover:bg-red-700 transition duration-300"
                           type="submit">
             Cancelar</a>           
         </div>

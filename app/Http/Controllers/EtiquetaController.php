@@ -87,7 +87,7 @@ class EtiquetaController extends Controller
         $etiqueta->updated_at = now();      
         $etiqueta->update();        
 
-        return redirect('/etiquetas');
+        return redirect('etiquetas');
     }
 
     /**
@@ -99,6 +99,6 @@ class EtiquetaController extends Controller
     public function destroy(Etiqueta $etiqueta)
     {
         $etiqueta->delete();
-        return redirect('/etiquetas');
+        return redirect('etiquetas');
     }
 }

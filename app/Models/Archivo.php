@@ -8,15 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Archivo extends Model
 {
     use HasFactory;
-    protected $fillable = ['filename', 'nombre', 'nombre_hash','ruta', 'mime', 'producto_id'];
+    protected $fillable = ['nombre', 'nombre_hash', 'mime', 'producto_id'];
     
     //Uno a muchos
-    public function productos()
+    public function producto()
     {
-        return $this->hasMany(Producto::class);
+        return $this->belongsTo(Producto::class);
     }
-
-
-
-
 }

@@ -13,7 +13,7 @@
                     <label for="table-search" class="sr-only">Search</label>
                     <div class="relative mt-1">
                         <a class="bg-blue-500 text-white px-4 py-2 rounded-md text-1xl font-medium hover:bg-blue-700 transition duration-300 float-right"
-                            href="{{ url('/etiqueta/create') }}">
+                            href="{{ url('etiquetas/create') }}">
                             Agregar
                         </a>
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -56,12 +56,12 @@
                                     {{ $etiqueta->nombre }}
                                 </th>                                
                                 <td class="px-6 py-4 text-center flex space-x-2">                                                             
-                                    <a href="/etiqueta/{{$etiqueta->id}}/edit"
+                                    <a href="etiquetas/{{$etiqueta->id}}/edit"
                                         class="font-bold text-white py-2 px-2 rounded cursor-pointer
                         bg-green-600 hover:bg-green-700">
                                         <i class="fas fa-edit fa-solid fa-eye-dropper-half"></i>
                                     </a>
-                                    <form action="/etiqueta/ {{ $etiqueta->id }}" method="POST">
+                                    <form action="etiquetas/ {{ $etiqueta->id }}" method="POST">
                                         @csrf
                                         @method('DELETE')                                        
                                         <button type="submit" class="font-bold text-white py-2 px-2 rounded cursor-pointer

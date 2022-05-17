@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\EtiquetaController;
+use App\Http\Controllers\ArchivoController;
 use App\Http\Controllers\SocialController;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,18 +28,12 @@ Route::middleware([
     'verified'
 ])->group(function () {  
     //Productos     
-    Route::get('/productos', [ProductoController::class, 'index']);
-    Route::get('/productos/create', [ProductoController::class, 'create']) /* ->name('productos.create') */;
-    Route::post('/producto', [ProductoController::class, 'store']); 
-    Route::delete('/producto/{producto}', [ProductoController::class, 'destroy']); 
-    Route::get('/producto/{producto}/show', [ProductoController::class, 'show']);
+    Route::resource('productos', ProductoController::class);
     //Etiquetas
-    Route::get('/etiquetas', [EtiquetaController::class, 'index']);
-    Route::get('/etiqueta/create', [EtiquetaController::class, 'create']);
-    Route::post('/etiqueta', [EtiquetaController::class, 'store']);
-    Route::delete('/etiqueta/{etiqueta}', [EtiquetaController::class, 'destroy']);     
-    Route::get('/etiqueta/{etiqueta}/edit', [EtiquetaController::class, 'edit']);
-    Route::patch('/etiqueta/{etiqueta}', [EtiquetaController::class, 'update']);    
+    Route::resource('etiquetas', EtiquetaController::class);
+     
+    /* //Archivos
+    Route::post('archivo', [ArchivoController::class, 'store'])->name('archivo.store'); */
 });
 
 

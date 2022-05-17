@@ -8,6 +8,7 @@ use App\Models\Archivo;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Gate;
 
@@ -15,12 +16,11 @@ use Illuminate\Support\Facades\Gate;
 class ProductoController extends Controller
 {
     private $rules = [
-        'nombre' => 'required|min:5', 
-        'marca' => 'required|min:6', 
-        'modelo' => 'required', 
+        'nombre' => 'required|min:1', 
+        'marca' => 'required|min:1', 
+        'modelo' => 'required|min:1', 
         'precio' => 'required', 
-        'cantidad' => 'required', 
-        'descripcion' => 'required',                
+        'cantidad' => 'required',                      
     ];
 
     /**
@@ -63,41 +63,26 @@ class ProductoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {       
+    {            
         $request->validate($this->rules);
         $request->merge([
             'user_id' => Auth::id(),
         ]);
         $producto = Producto::create($request->all());
         $producto->etiquetas()->attach($request->etiquetas_id);
-       /*  foreach($request->archivos as $archivo){
+        foreach($request->archivos as $archivo){ 
             if($archivo->isValid()){
-                $nombre_hash = $archivo->store('archivos');
+                $nombre_hash = $archivo->store('productos');
                 $registroArchivo = new Archivo();
                 $registroArchivo->nombre = $archivo->getClientOriginalName();
                 $registroArchivo->nombre_hash = $nombre_hash;
                 $registroArchivo->mime = $archivo->getClientMimeType();
-                $registroArchivo->save();
-
-            }
-        } */
-
-       /*  $producto = new Producto();
-        $producto->nombre = $request->nombre;
-        $producto->marca = $request->marca;
-        $producto->modelo = $request->modelo;
-        $producto->precio = $request->precio;
-        $producto->cantidad = $request->cantidad;
-        $producto->descripcion = $request->descripcion;
-        $producto->user_id = Auth::id();
-        $producto->created_at = now();
-        $producto->updated_at = now();
-        $producto->etiqeutas()->attach($request->etiqueta_id);
-        $producto->save();  */
-       
-        /* return redirect()->route('grabacion.show', $request->grabacion_id)
-        ->with(['mensaje'=>'Archivos cargados con éxito']); */
-        return redirect('/productos');
+                $registroArchivo->producto_id = $producto->id;
+                $registroArchivo->save();     
+            }                                                 
+        } 
+        return redirect('/productos')
+        ->with(['mensaje'=>'Archivos cargados con éxito']);     
     }    
 
     /**
@@ -108,7 +93,7 @@ class ProductoController extends Controller
      */
     public function show(Producto $producto)
     {
-        return view('producto.producto-show');
+        return view('producto.producto-show', compact('producto'));
     }
 
     /**
@@ -119,7 +104,7 @@ class ProductoController extends Controller
      */
     public function edit(Producto $producto)
     {
-        //
+        return view('producto.producto-form', compact('producto'))
     }
 
     /**
