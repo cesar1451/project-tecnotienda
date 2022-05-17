@@ -15,32 +15,18 @@
             </div>
 
             <div class="mt-4">
-                <x-jet-label for="rol" value="{{ __('Rol') }}" />  
-                <div class="mb-3 xl:w-96">
-                    <select class="form-select appearance-none
-                    block
-                    w-full
-                    px-3
-                    py-1.5
-                    text-base
-                    font-normal
-                    text-gray-700
-                    bg-white bg-clip-padding bg-no-repeat
-                    border border-solid border-gray-300
-                    rounded
-                    transition
-                    ease-in-out
-                    m-0
-                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="rol" :value="old('rol')" name="rol" form="formUsers" required>                       
-                        <option selected value="Admin">Admin</option>
-                        <option value="Proveedor">Proveedor</option>
+                <x-jet-label for="rol" value="{{ __('Rol') }}" />                  
+                <div class="mb-3 w-full">                    
+                    <select name="rol" id="rol" required class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
+                        <option value="Admin"> Admin </option>
+                        <option value="Proveedor"> Proveedor </option>                       
                     </select>
                     @error('rol')
                         <p class="form-text text-danger">{{$message}}</p>
                     @enderror
-                </div>
+                </div>                 
               </div>
-
+              
             <div class="mt-4">
                 <x-jet-label for="email" value="{{ __('Email') }}" />
                 <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use Illuminate\Auth\Access\Response;
 use Illuminate\Support\Facades\Gate;
 
 
@@ -30,18 +31,14 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        /* $rol = Auth::user()->rol;
-        if ($rol == 'Proveedor'){
+        $rol = Auth::user()->rol;  
+        if($rol == 'Proveedor'){
             $id = Auth::id();
-            $productos = Producto::with($id, 'user_id')->get();
-            //Nos falta que concatene los archivos y etiquetas
-        }
+            $productos = Producto::where('user_id', $id)->get();
+        } 
         else{
-            $productos = Producto::all();   
-            //Nos falta que concatene los archivos y etiquetas
-        } */
-
-        $productos = Producto::all();
+            $productos = Producto::all();
+        }             
         return view('producto.producto-index', compact('productos'));
     }
 
@@ -104,7 +101,7 @@ class ProductoController extends Controller
      */
     public function edit(Producto $producto)
     {
-        return view('producto.producto-form', compact('producto'))
+        return view('producto.producto-form', compact('producto'));
     }
 
     /**

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProductoController;
+use App\Models\Producto;
 use App\Http\Controllers\EtiquetaController;
 use App\Http\Controllers\ArchivoController;
 use App\Http\Controllers\SocialController;
@@ -36,6 +37,11 @@ Route::middleware([
     Route::post('archivo', [ArchivoController::class, 'store'])->name('archivo.store'); */
 });
 
+//Vista de usuario
+Route::get('/usuarios', function(){
+    $productos = Producto::all();
+    return view('usuarios.usuarios-index', compact('productos'));
+});
 
 Route::get('auth/facebook', [SocialController::class, 'redirectFacebook']);
 Route::get('auth/facebook/callback', [SocialController::class, 'callbackFacebook']);
