@@ -97,14 +97,16 @@
                             bg-green-600 hover:bg-green-700" >
                                 <i class="fas fa-edit fa-solid fa-eye-dropper-half"></i>
                             </a>
-                            <form action="{{ route('productos.destroy', $producto->id ) }}" method="POST">
-                                @csrf
-                                @method('DELETE')                                        
-                                <button type="submit" class="font-bold text-white py-2 px-2 rounded cursor-pointer
-                                bg-red-600 hover:bg-red-700">                                      
-                                    <i class="fas fa-trash fa-solid fa-eye-dropper-half"></i>                                    
-                                </button>  
-                            </form> 
+                            @can('isAdmin')
+                                <form action="{{ route('productos.destroy', $producto->id ) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')                                        
+                                    <button type="submit" class="font-bold text-white py-2 px-2 rounded cursor-pointer
+                                    bg-red-600 hover:bg-red-700">                                      
+                                        <i class="fas fa-trash fa-solid fa-eye-dropper-half"></i>                                    
+                                    </button>  
+                                </form> 
+                            @endcan                           
                         </td>
                     </tr>                   
                   @endforeach                  

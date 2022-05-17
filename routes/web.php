@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProductoController;
 use App\Models\Producto;
+use App\Models\Archivo;
 use App\Http\Controllers\EtiquetaController;
 use App\Http\Controllers\ArchivoController;
 use App\Http\Controllers\SocialController;
@@ -39,7 +40,7 @@ Route::middleware([
 
 //Vista de usuario
 Route::get('/usuarios', function(){
-    $productos = Producto::all();
+    $productos = Producto::all();   
     return view('usuarios.usuarios-index', compact('productos'));
 });
 

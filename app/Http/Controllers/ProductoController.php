@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\Auth\Access\Response;
+use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Gate;
 
 
@@ -30,15 +31,16 @@ class ProductoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {        
         $rol = Auth::user()->rol;  
         if($rol == 'Proveedor'){
             $id = Auth::id();
-            $productos = Producto::where('user_id', $id)->get();
+            $productos = Producto::where('user_id', $id)->select('id', 'nombre',
+            'marca', 'modelo', 'precio', 'cantidad')->get();
         } 
         else{
-            $productos = Producto::all();
-        }             
+            $productos = Producto::select('id', 'nombre','marca', 'modelo', 'precio', 'cantidad')->get();
+        }                   
         return view('producto.producto-index', compact('productos'));
     }
 
@@ -77,9 +79,9 @@ class ProductoController extends Controller
                 $registroArchivo->producto_id = $producto->id;
                 $registroArchivo->save();     
             }                                                 
-        } 
-        return redirect('/productos')
-        ->with(['mensaje'=>'Archivos cargados con éxito']);     
+        }     
+       /*  Alert::success('Listo', 'Producto registado satisfactoriamente'); */
+        return redirect('/productos');     
     }    
 
     /**
@@ -89,8 +91,8 @@ class ProductoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Producto $producto)
-    {
-        return view('producto.producto-show', compact('producto'));
+    {             
+        return view('producto.producto-show', ['producto' => $producto]);
     }
 
     /**

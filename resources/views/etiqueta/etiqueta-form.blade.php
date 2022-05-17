@@ -35,5 +35,5 @@
             <a href=" {{ url('etiquetas') }}" class="text-center mt-4 w-1/3 float-right bg-red-600 text-white px-4 py-2 rounded-md text-1xl font-medium hover:bg-red-700 transition duration-300"
                           type="submit">
             Cancelar</a>           
-        </div>
+        </div>       
 </x-app-layout>

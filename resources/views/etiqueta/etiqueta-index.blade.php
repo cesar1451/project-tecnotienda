@@ -61,20 +61,23 @@
                         bg-green-600 hover:bg-green-700">
                                         <i class="fas fa-edit fa-solid fa-eye-dropper-half"></i>
                                     </a>
-                                    <form action="etiquetas/ {{ $etiqueta->id }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')                                        
-                                        <button type="submit" class="font-bold text-white py-2 px-2 rounded cursor-pointer
-                                        bg-red-600 hover:bg-red-700">                                      
-                                            <i class="fas fa-trash fa-solid fa-eye-dropper-half"></i>                                    
-                                        </button>                             
-                                    </form>
+                                    @can('isAdmin')
+                                        <form action="{{ route('etiquetas.destroy', $etiqueta->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')                                        
+                                            <button type="submit" id="delete" class="delete-etiqueta font-bold text-white py-2 px-2 rounded cursor-pointer
+                                            bg-red-600 hover:bg-red-700">                                      
+                                                <i class="fas fa-trash fa-solid fa-eye-dropper-half"></i>                                    
+                                            </button>                             
+                                        </form>  
+                                    @endcan                                                                                                          
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
-                <script src="https://unpkg.com/flowbite@1.3.4/dist/flowbite.js"></script>
+                <script src="https://unpkg.com/flowbite@1.3.4/dist/flowbite.js"></script>                
             </div>
         </div>
+         {{--  Script  --}}         
 </x-app-layout>

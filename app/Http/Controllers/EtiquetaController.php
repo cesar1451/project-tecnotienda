@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Etiqueta;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Gate;
 
 class EtiquetaController extends Controller
 {
@@ -16,9 +18,8 @@ class EtiquetaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        
-        $etiquetas = Etiqueta::all();
+    {        
+        $etiquetas = Etiqueta::select('id', 'nombre')->get();
         return view('etiqueta.etiqueta-index', compact('etiquetas'));
     }
 
@@ -45,8 +46,8 @@ class EtiquetaController extends Controller
         $etiqueta->nombre = $request->nombre;       
         $etiqueta->created_at = now();
         $etiqueta->updated_at = now();
-        $etiqueta->save();        
-
+        $etiqueta->save();    
+                         
         return redirect('/etiquetas');
     }
 

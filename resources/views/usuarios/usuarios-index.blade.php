@@ -24,7 +24,7 @@
                         @foreach ($productos as $producto)
                             <div class="flex flex-col items-center justify-center w-full max-w-lg mx-auto">
                                 @foreach ($producto->archivos as $archivo)
-                                    <img class="object-cover w-full rounded-md h-72 xl:h-80" src="storage/app/productos/{{ $archivo->nombre_hash }}" alt="{{ $archivo->nombre }}">
+                                    <img class="object-cover w-full rounded-md h-72 xl:h-80" src="data:image/jpeg;base64,{{ base64_encode(\Storage::get($archivo->nombre_hash))}}" alt="{{ $archivo->nombre }}">
                                 @endforeach                                
                                 <h4 class="mt-2 text-lg font-medium text-gray-700 dark:text-gray-200">{{ $producto->nombre }}</h4>
                                 <p class="text-blue-500">Precio: ${{ $producto->precio }}</p>
