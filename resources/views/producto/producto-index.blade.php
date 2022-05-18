@@ -48,12 +48,12 @@
                     <th scope="col" class="px-6 py-3">
                         Cantidad
                     </th>                  
-                    {{--  <th scope="col" class="px-6 py-3">
+                    <th scope="col" class="px-6 py-3">
                         Etiquetas
                     </th>
-                    <th scope="col" class="px-6 py-3">
+                    {{--  <th scope="col" class="px-6 py-3">
                         Descripción
-                    </th>    --}}                  
+                    </th>    --}}              
                     <th scope="col" class="px-6 py-3">
                         Acciones
                     </th>
@@ -80,20 +80,20 @@
                         <td class="px-6 py-4">
                             {{ $producto->cantidad }}
                         </td>
-                       {{--   <td class="px-6 py-4">
+                       <td class="px-6 py-4">
                             @foreach ($producto->etiquetas as $etiqueta)
                             {{ $etiqueta->nombre }} <br>
                             @endforeach                            
                         </td>
-                        <td class="px-6 py-4">
+                        {{--  <td class="px-6 py-4">
                             {{ $producto->descripcion }}
-                        </td>  --}}
+                        </td>   --}}
                         <td class="px-6 py-4 text-center flex space-x-2">
                             <a href="{{ route('productos.show', $producto->id) }}" class="font-bold text-white py-2 px-2 rounded cursor-pointer
                             bg-purple-600 hover:bg-purple-700">
                                 <i class="fas fa-search fa-solid fa-eye-dropper-half"></i>
                             </a>
-                            <a href="{{ route('productos.edit', $producto->id) }}" class="font-bold text-white py-2 px-2 rounded cursor-pointer
+                            <a href="{{ route('productos.edit', $producto->id ) }}" class="font-bold text-white py-2 px-2 rounded cursor-pointer
                             bg-green-600 hover:bg-green-700" >
                                 <i class="fas fa-edit fa-solid fa-eye-dropper-half"></i>
                             </a>

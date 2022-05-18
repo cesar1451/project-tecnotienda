@@ -14,16 +14,16 @@ return new class extends Migration
     public function up()
     {
         Schema::create('productos', function (Blueprint $table) {
-                $table->id();
-                $table->string('nombre'); //Nombre del componente
-                $table->string('marca');
-                $table->string('modelo');
-                $table->double('precio', 8, 2);
-                $table->integer('cantidad')->unsigned();            
-                $table->text('descripcion')->nullable();//descripcion    
-                $table->foreignId('user_id');    
-                $table->timestamps();            
-            });
+            $table->id();
+            $table->string('nombre'); //Nombre del componente
+            $table->string('marca');
+            $table->string('modelo');
+            $table->double('precio', 8, 2);
+            $table->integer('cantidad')->unsigned();            
+            $table->text('descripcion')->nullable();//descripcion    
+            $table->foreignId('user_id');    
+            $table->timestamps();            
+        });
     }
 
     /**

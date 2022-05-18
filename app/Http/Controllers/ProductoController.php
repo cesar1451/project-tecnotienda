@@ -34,12 +34,13 @@ class ProductoController extends Controller
     {        
         $rol = Auth::user()->rol;  
         if($rol == 'Proveedor'){
-            $id = Auth::id();
-            $productos = Producto::where('user_id', $id)->select('id', 'nombre',
-            'marca', 'modelo', 'precio', 'cantidad')->get();
+            $id = Auth::id();            
+            $productos = Producto::where('user_id', $id)->select('id', 'nombre', 'marca', 'modelo', 'precio', 'cantidad')
+            ->with('etiquetas')->get();
         } 
         else{
-            $productos = Producto::select('id', 'nombre','marca', 'modelo', 'precio', 'cantidad')->get();
+            $productos = Producto::select('id', 'nombre','marca', 'modelo', 'precio', 'cantidad')
+            ->with('etiquetas')->get();
         }                   
         return view('producto.producto-index', compact('productos'));
     }
@@ -51,8 +52,8 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        $etiquetas = Etiqueta::all();
-        return view('producto.producto-form', compact('etiquetas'));
+        $etiquetas = Etiqueta::select('id', 'nombre')->get();
+        return view('producto.producto-form', ['etiquetas' => $etiquetas]);
     }
 
     /**
@@ -68,20 +69,22 @@ class ProductoController extends Controller
             'user_id' => Auth::id(),
         ]);
         $producto = Producto::create($request->all());
-        $producto->etiquetas()->attach($request->etiquetas_id);
-        foreach($request->archivos as $archivo){ 
-            if($archivo->isValid()){
-                $nombre_hash = $archivo->store('productos');
-                $registroArchivo = new Archivo();
-                $registroArchivo->nombre = $archivo->getClientOriginalName();
-                $registroArchivo->nombre_hash = $nombre_hash;
-                $registroArchivo->mime = $archivo->getClientMimeType();
-                $registroArchivo->producto_id = $producto->id;
-                $registroArchivo->save();     
-            }                                                 
-        }     
+        $producto->etiquetas()->attach($request->etiquetas_id);        
+        if(!is_null($request->archivos)){
+            foreach($request->archivos as $archivo){ 
+                if($archivo->isValid()){
+                    $nombre_hash = $archivo->store('productos');
+                    $registroArchivo = new Archivo();
+                    $registroArchivo->nombre = $archivo->getClientOriginalName();
+                    $registroArchivo->nombre_hash = $nombre_hash;
+                    $registroArchivo->mime = $archivo->getClientMimeType();
+                    $registroArchivo->producto_id = $producto->id;
+                    $registroArchivo->save();     
+                }                                                 
+            }  
+        }           
        /*  Alert::success('Listo', 'Producto registado satisfactoriamente'); */
-        return redirect('/productos');     
+        return redirect('productos');     
     }    
 
     /**
@@ -102,8 +105,10 @@ class ProductoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Producto $producto)
-    {
-        return view('producto.producto-form', compact('producto'));
+    {     
+        //dd($producto->etiquetas()->sync($producto->id));                
+        $etiquetas = Etiqueta::select('id', 'nombre')->get();
+        return view('producto.producto-form', ['producto' => $producto, 'etiquetas' => $etiquetas]);
     }
 
     /**
@@ -113,9 +118,39 @@ class ProductoController extends Controller
      * @param  \App\Models\Producto  $producto
      * @return \Illuminate\Http\Response
      */
+
     public function update(Request $request, Producto $producto)
-    {
-        //
+    {                      
+        $request->validate($this->rules);  
+        $request->merge([
+            'user_id' => Auth::id(),
+        ]);
+        
+        $producto->nombre = $request->nombre;
+        $producto->marca = $request->marca;
+        $producto->modelo = $request->modelo;
+        $producto->precio = $request->precio;
+        $producto->cantidad = $request->cantidad;
+        $producto->descripcion = $request->descripcion;
+        $producto->user_id = $request->user_id;                   
+        $producto->updated_at = now();                      
+        $producto->update();    
+        $producto->etiquetas()->sync($request->etiquetas_id);       
+        /* if(!is_null($request->archivos)){
+            foreach($request->archivos as $archivo){ 
+                if($archivo->isValid()){
+                    $nombre_hash = $archivo->store('productos');
+                    $registroArchivo = new Archivo();
+                    $registroArchivo->nombre = $archivo->getClientOriginalName();
+                    $registroArchivo->nombre_hash = $nombre_hash;
+                    $registroArchivo->mime = $archivo->getClientMimeType();
+                    $registroArchivo->producto_id = $producto->id;
+                    $registroArchivo->save();     
+                }                                                 
+            }  
+        }  */
+
+        return redirect('productos');          
     }
 
     /**

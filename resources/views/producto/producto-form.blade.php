@@ -22,6 +22,8 @@
                             name="nombre"
                             minlength="1"
                             placeholder="Nombre Producto"
+                            
+                            value="{{ old('nombre') }}{{ isset($producto) ? $producto->nombre : '' }}"
                             required
                         />
                         @error('nombre')
@@ -37,6 +39,7 @@
                             name="marca"
                             minlength="1"
                             placeholder="Marca"
+                            value="{{ old('marca') }}{{ isset($producto) ? $producto->marca : '' }}"
                             required
                         />
                         @error('marca')
@@ -56,6 +59,7 @@
                             id="Modelo"
                             minlength="1"
                             placeholder="Modelo"
+                            value="{{ old('modelo') }}{{ isset($producto) ? $producto->modelo : '' }}"
                             required
                         />
                         @error('modelo')
@@ -74,6 +78,7 @@
                             name="precio"
                             id="Precio"
                             placeholder="Precio"
+                            value="{{ old('precio') }}{{ isset($producto) ? $producto->precio : '' }}"
                             required
                         />
                         @error('precio')
@@ -92,6 +97,7 @@
                             name="cantidad"
                             id="Cantidad"
                             placeholder="Cantidad"
+                            value="{{ old('cantidad') }}{{ isset($producto) ? $producto->cantidad : '' }}"
                             required
                         />
                         @error('cantidad')
@@ -106,12 +112,12 @@
                         >
                         <textarea
                                 class=" form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                id="Descripcion"
+                                id="descripcion"
                                 rows="3"
                                 placeholder="Descripción"
                                 name="descripcion"
-                                {{--  value="{{ old('descripcion') ?? $producto->descripcion ?? '' }}">  --}}
-                        ></textarea>                     
+                                value="{{ old('descripcion')}} {{ isset($producto) ? $producto->descripcion : '' }}">  
+                        </textarea>                     
                     </div>
                 </div>
                 {{--  Etiquetas  --}}                       
@@ -120,10 +126,11 @@
                         <label for="etiquetas" class="form-label inline-block mb-2 text-gray-700"
                             >Etiquetas: </label>
                         <select class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" id="Etiquetas" 
-                        name="etiquetas_id[]"  multiple>
-                                @foreach ($etiquetas as $etiqueta)
-                                    <option value="{{ $etiqueta->id }}"> {{ $etiqueta->nombre }} </option>
-                                @endforeach                                                                                 
+                        name="etiquetas_id[]"  multiple>                      
+                            @foreach ($etiquetas as $etiqueta)
+                                    {{-- <option value="{{ $etiqueta->id }} {{ isset($producto) ? ($producto->etiquetas->nombre == $etiqueta->nombre ? 'selected' : '') : '' }}"> {{ $etiqueta->nombre }} </option> --}}
+                                <option value="{{ $etiqueta->id }} {{ isset($producto) ? 'selected' : '' }}"> {{ $etiqueta->nombre }} </option> 
+                            @endforeach 
                         </select>
                         @error('etiqueta')
                             <div class="form-text text-danger">{{$message}}</div>
@@ -138,7 +145,7 @@
                             <input type='file' name="archivos[]" multiple accept="image/*"></input>                               
                         </div> 
                     </div>
-                </div>
+                </div>  
                 <button type="submit" class=" mt-4 w-1/3 float-right bg-blue-500 mx-4 text-white px-4 py-2 rounded-md text-1xl font-medium hover:bg-blue-700 transition duration-300">Guardar</button>                            
             </form>
             <a href=" {{ url('/productos') }}" class="text-center mt-4 w-1/3 float-right bg-red-600 text-white px-4 py-2 rounded-md text-1xl font-medium hover:bg-red-700 transition duration-300"

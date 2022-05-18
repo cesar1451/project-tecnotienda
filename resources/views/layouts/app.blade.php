@@ -21,8 +21,9 @@
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-        @include('sweetalert::alert')
+       
     </head>
     <body class="font-sans antialiased">
         <x-jet-banner />
@@ -46,7 +47,9 @@
         </div>
 
         @stack('modals')
-
+        @stack('js')
+        @yield('js')
+        
         @livewireScripts
     </body>
 </html>

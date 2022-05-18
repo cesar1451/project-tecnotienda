@@ -62,10 +62,10 @@
                                         <i class="fas fa-edit fa-solid fa-eye-dropper-half"></i>
                                     </a>
                                     @can('isAdmin')
-                                        <form action="{{ route('etiquetas.destroy', $etiqueta->id) }}" method="POST">
+                                        <form action="{{ route('etiquetas.destroy', $etiqueta->id) }}" id="delete" method="POST" class="formmulario-eliminar">
                                             @csrf
                                             @method('DELETE')                                        
-                                            <button type="submit" id="delete" class="delete-etiqueta font-bold text-white py-2 px-2 rounded cursor-pointer
+                                            <button type="submit" class="delete-etiqueta font-bold text-white py-2 px-2 rounded cursor-pointer
                                             bg-red-600 hover:bg-red-700">                                      
                                                 <i class="fas fa-trash fa-solid fa-eye-dropper-half"></i>                                    
                                             </button>                             
@@ -79,5 +79,47 @@
                 <script src="https://unpkg.com/flowbite@1.3.4/dist/flowbite.js"></script>                
             </div>
         </div>
-         {{--  Script  --}}         
+
+        @section('js')
+        @if (session('eliminar') == 'ok')
+            <script>
+                Swal.fire(
+                    'Eliminado!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+            </script>
+        @endif       
+        
+        @if (session('eliminar') == 'ok')
+            <script>
+                Swal.fire(
+                    'Eliminado!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+            </script>
+        @endif       
+        <script> 
+            const el = document.getElementById('delete');
+            if (el){
+                el.addEventListener('click', function(e){
+                    e.preventDefault();
+                    Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            this.submit();
+                        }
+                    })
+                });
+            }                             
+        </script>        
+        @endsection
 </x-app-layout>

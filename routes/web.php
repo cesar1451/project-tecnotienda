@@ -40,8 +40,8 @@ Route::middleware([
 
 //Vista de usuario
 Route::get('/usuarios', function(){
-    $productos = Producto::all();   
-    return view('usuarios.usuarios-index', compact('productos'));
+    $productos = Producto::with('etiquetas', 'archivos')->get();   
+    return view('usuarios.usuarios-index', ['productos' => $productos]);
 });
 
 Route::get('auth/facebook', [SocialController::class, 'redirectFacebook']);

@@ -6,6 +6,7 @@ use App\Models\Etiqueta;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Gate;
+use App\Events\EventosEtiquetas;
 
 class EtiquetaController extends Controller
 {
@@ -43,13 +44,13 @@ class EtiquetaController extends Controller
     {
         $request->validate($this->rules);
         $etiqueta = new Etiqueta();
-        $etiqueta->nombre = $request->nombre;       
+        $etiqueta->nombre = $request->nombre;
         $etiqueta->created_at = now();
         $etiqueta->updated_at = now();
         $etiqueta->save();    
-                         
-        return redirect('/etiquetas');
-    }
+        
+        return redirect('etiquetas'); 
+    }   
 
     /**
      * Display the specified resource.
@@ -100,6 +101,6 @@ class EtiquetaController extends Controller
     public function destroy(Etiqueta $etiqueta)
     {
         $etiqueta->delete();
-        return redirect('etiquetas');
+        return redirect('etiquetas')->with('eliminar','ok');
     }
 }
