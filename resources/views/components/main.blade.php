@@ -6,6 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- CSS only -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/usuarios.css') }}">
+    <!-- component -->
+    <link rel="stylesheet" href="https://cdn.tailgrids.com/tailgrids-fallback.css" />
     <script src="{{ asset('js/app.js') }}"></script>
     <title> {{ $title ?? 'TecnoTienda' }} </title>
 </head>

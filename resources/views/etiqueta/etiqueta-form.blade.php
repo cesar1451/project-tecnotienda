@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="w-1/3 mx-auto bg-white p-24">
             @isset($etiqueta)
-                <form action="{{ route('etiquetas.update', $etiqueta->id) }}" method="POST" > {{-- Update --}}
+                <form action="{{ route('etiquetas.update', $etiqueta->id) }}" method="POST" id="guardar"> {{-- Update --}}
                     @method('PATCH')
             @else
                 <form action="{{ route('etiquetas.store') }}" method="POST"> {{-- Crear --}}
@@ -27,7 +27,7 @@
                         <div class="alert alert-danger"> {{ $message }} </div>
                     @enderror
                 </div>
-                <button id="guardar" type="submit"
+                <button type="submit"
                     class=" mt-4 w-1/3 float-right bg-blue-500 mx-4 text-white px-4 py-2 rounded-md text-1xl font-medium hover:bg-blue-700 transition duration-300">Guardar</button>
             </form>
             <a href=" {{ url('etiquetas') }}"
@@ -36,10 +36,23 @@
                 Cancelar</a>
         </div>
 
-        @section('js')
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-        
-                   
+        @section('js')                                         
+            <script> 
+                const el = document.getElementById('guardar');
+                if (el){
+                    el.addEventListener('click', function(e){
+                        e.preventDefault();
+                        Swal.fire({
+                        title: 'Éxito',
+                        text: "Producto Guardado con éxito!",
+                        icon: 'success',                                             
+                        }).then((result) => {
+                            if (result.isConfirmed) {                               
+                                this.submit();                
+                            }
+                        })
+                    });
+                }                             
+            </script>                         
         @endsection
 </x-app-layout>

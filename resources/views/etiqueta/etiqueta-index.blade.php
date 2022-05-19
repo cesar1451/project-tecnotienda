@@ -90,16 +90,7 @@
                 )
             </script>
         @endif       
-        
-        @if (session('eliminar') == 'ok')
-            <script>
-                Swal.fire(
-                    'Eliminado!',
-                    'Your file has been deleted.',
-                    'success'
-                )
-            </script>
-        @endif       
+                    
         <script> 
             const el = document.getElementById('delete');
             if (el){

@@ -3,52 +3,61 @@
         TecnoTienda - Usuarios
     </x-slot:title>
     <x-nav></x-nav>
-    {{--  Cuerpo   --}} 
-    <section class="bg-white">
-        <div class="container px-6 py-8 mx-auto">
-            <div class="lg:flex lg:-mx-2">
-                {{--  <div class="space-y-3 lg:w-1/5 lg:px-2 lg:space-y-4">
-                    <a href="#" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Jackets & Coats</a>
-                    <a href="#" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Hoodies</a>
-                    <a href="#" class="block font-medium text-blue-600 dark:text-blue-500 hover:underline">T-shirts & Vests</a>
-                    <a href="#" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Shirts</a>
-                    <a href="#" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Blazers & Suits</a>
-                    <a href="#" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Jeans</a>
-                    <a href="#" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Trousers</a>
-                    <a href="#" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Shorts</a>
-                    <a href="#" class="block font-medium text-gray-500 dark:text-gray-300 hover:underline">Underwear</a>
-                </div>  --}}
-
-                <div class="mt-6 lg:mt-0 lg:px-2 lg:w-4/5 ">                    
-                    <div class="grid grid-cols-1 gap-8 mt-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                        @foreach ($productos as $producto)
-                            <div class="flex flex-col items-center justify-center w-full max-w-lg mx-auto">
-                                @foreach ($producto->archivos as $archivo)
-                                    <img class="object-cover w-full rounded-md h-72 xl:h-80" src="data:image/jpeg;base64,{{ base64_encode(\Storage::get($archivo->nombre_hash))}}" alt="{{ $archivo->nombre }}">
-                                @endforeach                                
-                                <h4 class="mt-2 text-lg font-medium text-gray-700 dark:text-gray-200">{{ $producto->nombre }}</h4>
-                                <p class="text-blue-500">Precio: ${{ $producto->precio }}</p>
-                                <p class="text-blue-500">Marca: {{ $producto->marca }}</p>                                
-                                <p class="text-blue-500">Modelo: {{ $producto->modelo }}</p>
-                                <p class="text-blue-500">Existencias: {{ $producto->cantidad }}</p>
-                                <p class="text-blue-500">Descripción: {{ $producto->descripcion}}</p>
-                                <p class="text-blue-500"> Etiquetas: </p>
-                                @foreach ($producto->etiquetas as $etiqueta)
-                                    <p class="text-blue-500"> * {{ $etiqueta->nombre }} </p>
-                                    
-                                @endforeach
-                                <button class="flex items-center justify-center w-full px-2 py-2 mt-4 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-gray-800 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-700">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mx-1" viewBox="0 0 20 20" fill="currentColor">
-                                        <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z" />
-                                    </svg>
-                                    <span class="mx-1">Add to cart</span>
-                                </button>
-                            </div>
-                        @endforeach                                        
-                    </div>
-                </div>
+    {{--  Cuerpo   --}}       
+    <!-- ====== Cards Section Start -->
+    <section class="pt-20 lg:pt-[40px] pb-10 lg:pb-20 bg-white">        
+        <div class="container">            
+            <div class="flex flex-wrap mx-4">            
+                @foreach ($productos as $producto)
+                    <div class="w-full md:w-1/2 xl:w-1/3 px-4">
+                        <div class="bg-white rounded-lg overflow-hidden mb-10">
+                            @foreach ($producto->archivos as $archivo)
+                                <img
+                                src="data:image/jpeg;base64,{{ base64_encode(\Storage::get($archivo->nombre_hash))}}"
+                                alt="{{ $archivo->nombre }}"
+                                class="w-full"
+                                />
+                            @endforeach                            
+                            <div class="p-8 sm:p-9 md:p-7 xl:p-9 text-center">
+                                <h3 class="
+                                        font-semibold
+                                        text-dark text-xl
+                                        sm:text-[22px]
+                                        md:text-xl
+                                        lg:text-[22px]
+                                        xl:text-xl
+                                        2xl:text-[22px]
+                                        mb-4
+                                        block
+                                        hover:text-primary
+                                        "
+                                        >
+                                    {{ $producto->nombre }}                              
+                                </h3>
+                                <p class="text-left text-body-color leading-relaxed mb-7">
+                                    Marca: {{ $producto->marca }} <br> 
+                                    Modelo: {{ $producto->modelo }} <br>
+                                    Precio: ${{ $producto->precio }} <br> 
+                                    Cantidad: {{ $producto->cantidad }} <br>
+                                    Descripción: {{ $producto->descripcion }}  
+                                </p>  
+                                <div class="flex flex-wrap justify-starts items-center mt-6">
+                                    @foreach ($producto->etiquetas as $etiquetas)
+                                        <div class="text-xs mb-2 mr-2 py-1.5 px-4 text-gray-600 bg-purple-200 rounded-2xl">
+                                            # {{ $etiquetas->nombre }}
+                                        </div>
+                                    @endforeach                                        
+                                </div>                            
+                            </div>                           
+                        </div>                       
+                    </div>                    
+                @endforeach                                                      
             </div>
         </div>
     </section>
+    <!-- ====== Cards Section End -->       
+    {{--  Script  --}}   
+    <script>       
+    </script>         
     <x-footer></x-footer>
 </x-main>
