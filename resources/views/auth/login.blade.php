@@ -59,6 +59,7 @@
 
         <div class="flex items-center justify-end mt-4">
             <a class="btn btn-facebook" href="{{ url('auth/facebook') }}">Login con Facebook</a>
+            <a class="btn btn-facebook" href="{{ url('auth/github') }}">Login con Github</a>
         </div>
     </x-jet-authentication-card>
 </x-guest-layout>

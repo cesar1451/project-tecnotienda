@@ -46,3 +46,6 @@ Route::get('/usuarios', function(){
 
 Route::get('auth/facebook', [SocialController::class, 'redirectFacebook']);
 Route::get('auth/facebook/callback', [SocialController::class, 'callbackFacebook']);
+
+Route::get('auth/{provider}', [SocialController::class, 'redirectFacebook']);
+Route::get('auth/{provider}/callback', [SocialController::class, 'callbackFacebook']);

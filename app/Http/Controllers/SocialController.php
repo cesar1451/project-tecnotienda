@@ -10,28 +10,27 @@ use Illuminate\Support\Facades\Auth;
 
 class SocialController extends Controller
 {
-    public function redirectFacebook(){
-        return Socialite::driver('facebook')->redirect();
+    public function redirectFacebook($provider){
+        return Socialite::driver($provider)->redirect();
     }
 
-    public function callbackFacebook(){
+    public function callbackFacebook($provider){
         try {
-            $facebookUser = Socialite::driver('facebook')->user();
-            $findUser = User::where('fb_id', $facebookUser->id)->first();
+            $facebookUser = Socialite::driver($provider)->user();
+            $findUser = User::where('email', $facebookUser->email)->first();
 
             if($findUser) {
                 Auth::login($findUser);
-                return redirect()->intended('dashboard');
+                return redirect()->intended('productos');
             }else{
                 $newUser = User::create([
                     'name' => $facebookUser->name,
-                    'rol' => $facebookUser->rol,
+                    'rol' => 'admin',
                     'email' => $facebookUser->email,
-                    'fb_id' => $facebookUser->id,
                     'password' => encrypt('12345678')
                 ]);
                 Auth::login($newUser);
-                return redirect()->intended('dashboard');
+                return redirect()->intended('productos');
             }
         } catch (Exception $e) {
             dd($e->getMessage());
