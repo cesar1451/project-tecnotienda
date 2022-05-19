@@ -13,7 +13,7 @@
             @else
                 <form action="{{ route('etiquetas.store') }}" method="POST"> {{-- Crear --}}
             @endisset
-                
+                @csrf
                 <div class="flex justify-center">
                     <div class="mb-3 xl:w-96">
                         <label for="nombre" class="form-label inline-block mb-2 text-gray-700">Nombre: </label>
@@ -40,32 +40,6 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
         
-
-   <script type="text/javascript">
-
-    $('#form-etiquetas-guardar').on('submit',function(e){
-        e.preventDefault();
-        let nombre = $('#nombre').val();
-        $.ajax({
-          url: "{{ route('etiquetas.store') }}",
-          type:"POST",
-          data:{
-            "_token": "{{ csrf_token() }}",
-            nombre:nombre,
-          },
-          success:function(response){
-            console.log(response);
-            if (response) {
-              $('#success-message').text(response.success); 
-              $("#form-etiquetas")[0].reset(); 
-            }
-          },
-          error: function(response) {
-            $('#nombre-error').text(response.responseJSON.errors.nombre);           
-           }
-         });
-        });
-      </script>
                    
         @endsection
 </x-app-layout>

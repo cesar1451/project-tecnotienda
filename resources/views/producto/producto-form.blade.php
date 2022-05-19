@@ -107,16 +107,15 @@
                 </div>
                 <div class="flex justify-center">
                     <div class="mb-3 xl:w-96">
-                        <label for="descripcion" class="form-label inline-block mb-2 text-gray-700"
+                        <label for="descripcion" class="form-label inline-block mb-2  text-gray-700"
                             >Descripción: </label
                         >
                         <textarea
-                                class=" form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                                class="form-control block w-full text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none text-left"
                                 id="descripcion"
-                                rows="3"
-                                placeholder="Descripción"
-                                name="descripcion"
-                                value="{{ old('descripcion')}} {{ isset($producto) ? $producto->descripcion : '' }}">  
+                                rows="3"                            
+                                name="descripcion">
+                                {{ old('descripcion') }}{{ isset($producto) ? $producto->descripcion : '' }}
                         </textarea>                     
                     </div>
                 </div>
@@ -129,7 +128,7 @@
                         name="etiquetas_id[]"  multiple>                      
                             @foreach ($etiquetas as $etiqueta)
                                     {{-- <option value="{{ $etiqueta->id }} {{ isset($producto) ? ($producto->etiquetas->nombre == $etiqueta->nombre ? 'selected' : '') : '' }}"> {{ $etiqueta->nombre }} </option> --}}
-                                <option value="{{ $etiqueta->id }} {{ isset($producto) ? 'selected' : '' }}"> {{ $etiqueta->nombre }} </option> 
+                                    <option value="{{ $etiqueta->id }}" {{ isset($producto) && array_search($etiqueta->id, $producto->etiquetas->pluck('id')->toArray()) !== false ? ' selected' : '' }}>{{ $etiqueta->nombre }}</option>
                             @endforeach 
                         </select>
                         @error('etiqueta')

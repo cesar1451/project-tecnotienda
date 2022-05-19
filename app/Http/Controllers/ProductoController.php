@@ -105,9 +105,9 @@ class ProductoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Producto $producto)
-    {     
-        //dd($producto->etiquetas()->sync($producto->id));                
-        $etiquetas = Etiqueta::select('id', 'nombre')->get();
+    {   
+        $producto->load('etiquetas', 'archivos'); //Traer la relación
+        $etiquetas = Etiqueta::select('id', 'nombre')->get();     
         return view('producto.producto-form', ['producto' => $producto, 'etiquetas' => $etiquetas]);
     }
 
@@ -134,7 +134,7 @@ class ProductoController extends Controller
         $producto->descripcion = $request->descripcion;
         $producto->user_id = $request->user_id;                   
         $producto->updated_at = now();                      
-        $producto->update();    
+        $producto->update();        $      
         $producto->etiquetas()->sync($request->etiquetas_id);       
         /* if(!is_null($request->archivos)){
             foreach($request->archivos as $archivo){ 
@@ -149,6 +149,25 @@ class ProductoController extends Controller
                 }                                                 
             }  
         }  */
+        if(!is_null($request->archivos)){
+            // ELimina los arhivos del storage
+            $arregloArchivos = $producto->archivos->pluck('nombre_hash')->toArray();
+            Storage::delete($arregloArchivos);
+            //Eliminar de la BD los arhivos en relación
+            $producto->archivos()->delete();
+            
+            foreach($request->archivos as $archivo){ 
+                if($archivo->isValid()){
+                    $nombre_hash = $archivo->store('productos');
+                    $registroArchivo = new Archivo();
+                    $registroArchivo->nombre = $archivo->getClientOriginalName();
+                    $registroArchivo->nombre_hash = $nombre_hash;
+                    $registroArchivo->mime = $archivo->getClientMimeType();
+                    $registroArchivo->producto_id = $producto->id;
+                    $registroArchivo->save();     
+                }                                                 
+            }  
+        }       
 
         return redirect('productos');          
     }
